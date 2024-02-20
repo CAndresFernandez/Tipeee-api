@@ -63,13 +63,13 @@ class Project
         return $this;
     }
 
-    public function serialize() {
-        return [
-            "id" => $this->getId(),
-            "name" => $this->getName(),
-            "slug" => $this->getSlug()
-        ];
-    }
+    // public function serialize() {
+    //     return [
+    //         "id" => $this->getId(),
+    //         "name" => $this->getName(),
+    //         "slug" => $this->getSlug()
+    //     ];
+    // }
 
 
 

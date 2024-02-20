@@ -4,11 +4,11 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
-
 use App\Entity\Project;
+use App\Form\ProjectType;
 use App\Service\ProjectManager;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ProjectController extends AbstractController {
 
@@ -22,17 +22,16 @@ class ProjectController extends AbstractController {
     /**
      * @Route("/projects", methods={"POST"})
      */
-    public function postProject(Request $request): JsonResponse
+    public function postProject(SerializerInterface $serializer, Request $request): JsonResponse
     {
         $project = $this->projectManager->createProject();
-        $form = $this->createFormBuilder($project)
-            ->add('name', TextType::class)
-            ->add('slug', TextType::class)
-            ->getForm();
+        $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            return $this->json($project->serialize());
+            return $serializer->serialize($project, 'json');
         }
-        return $this->json(["error" => "An error occured"]);
+
+        return $this->json(["error" => "An error occurred"]);
     }
 }
