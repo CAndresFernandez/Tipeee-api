@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\ProjectRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -63,6 +62,8 @@ class Project
         return $this;
     }
 
+    // no longer needed
+
     // public function serialize() {
     //     return [
     //         "id" => $this->getId(),
@@ -70,7 +71,4 @@ class Project
     //         "slug" => $this->getSlug()
     //     ];
     // }
-
-
-
 }
