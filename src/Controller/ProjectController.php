@@ -53,8 +53,12 @@ class ProjectController extends AbstractController {
         $form->submit($data);
 
         if ($form->isValid()) {
-            //! replaced $project->serialize with repository flush and return of new $project object
+            //! replaced $project->serialize with SerializerInterface->Serializer
             // return $this->json($project->serialize());
+
+            //! replaced with repository flush + return $project object json
+            // $serializer->serialize($data, 'json');
+
             $projectRepository->add($project, true);
             return $this->json($project, Response::HTTP_CREATED);
         }
